@@ -1,5 +1,5 @@
-import LoginField from "@components/CredentialsForm";
-import Error from "@components/Error";
+import LoginField from "@components/LoginField";
+import ErrorComponent from "@components/Error";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { useLoginUser } from "@hooks/auth";
 import { Redirect } from "expo-router";
@@ -19,7 +19,7 @@ const Login = () => {
   }
 
   if (error) {
-    return <Error error={error.message} />;
+    return <ErrorComponent error={error.message} />;
   }
 
   return (

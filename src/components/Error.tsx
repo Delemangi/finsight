@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Error = ({ error }: Props) => {
+const ErrorComponent = ({ error }: Props) => {
   const classes = useStyles();
 
   return (
@@ -30,4 +30,4 @@ const Error = ({ error }: Props) => {
   );
 };
 
-export default Error;
+export default ErrorComponent;
