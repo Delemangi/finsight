@@ -11,6 +11,7 @@ export const useGetPosts = (type: string | null) => {
       fetch(getUrl(type!))
         .then((res) => res.json())
         .then((data) => data.posts),
+    select: (data) => data.reverse(),
     staleTime: 1000 * 60 * 5,
   });
 };

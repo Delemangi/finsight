@@ -1,4 +1,11 @@
-import { Button, Input, Text, makeStyles } from "@rneui/themed";
+import {
+  Button,
+  Divider,
+  Input,
+  Text,
+  makeStyles,
+  useTheme,
+} from "@rneui/themed";
 import { Link } from "expo-router";
 import {
   NativeSyntheticEvent,
@@ -13,13 +20,36 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flex: 1,
     backgroundColor: theme.colors.background,
+    width: "100%",
   },
   title: {
     marginHorizontal: "auto",
     marginVertical: theme.spacing.xl,
+    color: theme.colors.white,
   },
   button: {
-    marginVertical: theme.spacing.xl,
+    marginTop: theme.spacing.lg,
+    borderRadius: 2.5,
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputContainer: {
+    width: "60%",
+    backgroundColor: theme.colors.background,
+    paddingTop: theme.spacing.lg,
+  },
+  input: {
+    color: theme.colors.white,
+  },
+  link: {
+    color: theme.colors.white,
+    marginVertical: theme.spacing.lg,
+  },
+  spacing: {
+    marginVertical: theme.spacing.md,
   },
 }));
 
@@ -31,6 +61,8 @@ type Props = {
   onPasswordChange: (password: string) => void;
   disabled: boolean;
   onButtonClick: () => void;
+  isLoading: boolean;
+  error?: Error | null;
 };
 
 const LoginField = ({
@@ -41,8 +73,11 @@ const LoginField = ({
   onPasswordChange,
   disabled,
   onButtonClick,
+  isLoading,
+  error,
 }: Props) => {
-  const classes = useStyles();
+  const styles = useStyles();
+  const { theme } = useTheme();
 
   const handleKeyPress = (
     event: NativeSyntheticEvent<TextInputKeyPressEventData>,
@@ -53,11 +88,19 @@ const LoginField = ({
   };
 
   return (
-    <View style={classes.container}>
-      <View>
-        <Text h4 style={classes.title}>
-          {mode.toUpperCase()}
-        </Text>
+    <View style={[styles.container, styles.center]}>
+      <Text h4 style={[styles.title, styles.center]}>
+        {mode.toUpperCase()}
+      </Text>
+      <Divider
+        color={theme.colors.secondary}
+        width={0.5}
+        style={{
+          width: "75%",
+          marginBottom: 20,
+        }}
+      />
+      <View style={[styles.inputContainer, styles.center]}>
         <Input
           value={email}
           onChangeText={onEmailChange}
@@ -65,7 +108,10 @@ const LoginField = ({
           onKeyPress={handleKeyPress}
           returnKeyType="next"
           keyboardType="email-address"
+          autoCapitalize="none"
+          style={styles.input}
         />
+        <View style={styles.spacing} />
         <Input
           value={password}
           onChangeText={onPasswordChange}
@@ -73,23 +119,32 @@ const LoginField = ({
           onKeyPress={handleKeyPress}
           returnKeyType="done"
           keyboardType="default"
+          autoCapitalize="none"
           secureTextEntry
+          style={styles.input}
+          renderErrorMessage={Boolean(error)}
+          errorMessage={error ? "Your credentials are incorrect" : ""}
         />
-        <Button
-          disabled={disabled}
-          onPress={onButtonClick}
-          radius={5}
-          style={classes.button}
-        >
-          {mode.toUpperCase()}
-        </Button>
       </View>
+      <View style={styles.spacing} />
+      <Button
+        onPress={onButtonClick}
+        disabled={disabled}
+        radius={5}
+        style={styles.button}
+        loading={isLoading}
+        color="success"
+      >
+        {mode.toUpperCase()}
+      </Button>
       <View>
         <Link
           href={mode === "login" ? "/register" : "/login"}
-          disabled={disabled}
+          style={styles.link}
         >
-          {mode === "login" ? "No account? Register" : "Have an account? Login"}
+          {mode === "login"
+            ? "No account? Register!"
+            : "Have an account? Login!"}
         </Link>
       </View>
     </View>

@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     color: theme.colors.error,
   },
+  message: {
+    color: theme.colors.white,
+    marginBottom: theme.spacing.xl,
+  },
 }));
 
 type Props = {
@@ -24,7 +28,9 @@ const ErrorScreen = ({ error }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text h3>The application has crashed.</Text>
+      <Text h4 style={styles.message}>
+        The application has crashed :'(
+      </Text>
       <Text style={styles.errorText}>{error}</Text>
     </View>
   );
