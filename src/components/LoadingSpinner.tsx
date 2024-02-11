@@ -16,10 +16,10 @@ type Props = {
 };
 
 const LoadingSpinner = ({ size = "small", style }: Props) => {
-  const classes = useStyles();
+  const styles = useStyles();
 
   return (
-    <View style={[classes.container, style]}>
+    <View style={[styles.container, style]}>
       <ActivityIndicator size={size} />
     </View>
   );

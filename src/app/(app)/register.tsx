@@ -1,7 +1,7 @@
-import LoginField from "@components/CredentialsForm";
-import Error from "@components/Error";
+import { useRegisterUser } from "@auth/hooks";
+import ErrorScreen from "@components/ErrorScreen";
 import LoadingSpinner from "@components/LoadingSpinner";
-import { useRegisterUser } from "@hooks/auth";
+import LoginField from "@components/LoginField";
 import { Redirect } from "expo-router";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ const Register = () => {
   }
 
   if (error) {
-    return <Error error={error.message} />;
+    return <ErrorScreen error={error.message} />;
   }
 
   return (

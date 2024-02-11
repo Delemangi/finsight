@@ -1,10 +1,6 @@
 import { makeStyles, Text } from "@rneui/themed";
 import { View } from "react-native";
 
-type Props = {
-  error: string;
-};
-
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -19,15 +15,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Error = ({ error }: Props) => {
-  const classes = useStyles();
+type Props = {
+  error: string;
+};
+
+const ErrorScreen = ({ error }: Props) => {
+  const styles = useStyles();
 
   return (
-    <View style={classes.container}>
+    <View style={styles.container}>
       <Text h3>The application has crashed.</Text>
-      <Text style={classes.errorText}>{error}</Text>
+      <Text style={styles.errorText}>{error}</Text>
     </View>
   );
 };
 
-export default Error;
+export default ErrorScreen;
