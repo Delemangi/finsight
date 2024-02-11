@@ -12,8 +12,11 @@
       "@components/*": [
         "./src/components/*"
       ],
-      "@hooks/*": [
-        "./src/hooks/*"
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
       ],
       "@providers/*": [
         "./src/providers/*"

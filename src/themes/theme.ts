@@ -18,6 +18,5 @@ export const theme = createTheme({
       },
     },
   },
-
   mode: "dark",
 });

@@ -1,5 +1,5 @@
 import AppHeader from "@components/AppHeader";
-import { useDeleteCache, useGetJobs } from "@query/queryClient";
+import { useGetPostTypes } from "@query/hooks";
 import { makeStyles } from "@rneui/themed";
 import { usePostStore } from "@stores/postStore";
 import { Slot } from "expo-router";
@@ -20,27 +20,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeLayout = () => {
-  const { mutate } = useDeleteCache();
+  const styles = useStyles();
+  const { data: typesData } = useGetPostTypes();
+  const setTypes = usePostStore((state) => state.setTypes);
+
   useEffect(() => {
-    mutate();
-  }, []);
-
-  const {
-    isLoading: jobLoading,
-    error: jobsError,
-    data: jobsData,
-  } = useGetJobs();
-  const postState = usePostStore.getState();
-  if (jobsData) {
-    postState.addPosts(jobsData);
-  }
-
-  const classes = useStyles();
+    if (typesData) {
+      setTypes(typesData);
+    }
+  }, [typesData]);
 
   return (
     <>
       <AppHeader />
-      <View style={classes.container}>
+      <View style={styles.container}>
         <Slot />
       </View>
     </>

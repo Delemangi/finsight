@@ -1,4 +1,6 @@
-import { PostComponent } from "@components/PostComponent";
+import { isRouteAuthenticated } from "@auth/routes";
+import { PostCard } from "@components/PostCard";
+import { useGetPosts } from "@query/hooks";
 import { usePostStore } from "@stores/postStore";
 import { useUserStore } from "@stores/userStore";
 import { usePathname } from "expo-router";
@@ -10,17 +12,17 @@ import Login from "./login";
 const App = () => {
   const { user } = useUserStore();
   const route = usePathname();
-  const posts = usePostStore((state) => state.posts);
-  if (!user && route !== "/login" && route !== "/register") {
+  const postsType = usePostStore((state) => state.type);
+  const { data } = useGetPosts(postsType);
+
+  if (!user && isRouteAuthenticated(route)) {
     return <Login />;
   }
 
   return (
     <ScrollView>
       <StatusBar style="auto" />
-      {posts.map((post) => (
-        <PostComponent key={post.url} post={post} />
-      ))}
+      {data?.map((post) => <PostCard key={post.url} post={post} />)}
     </ScrollView>
   );
 };

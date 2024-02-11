@@ -1,6 +1,10 @@
-import { makeStyles, Text, Input, Button } from "@rneui/themed";
+import { Button, Input, Text, makeStyles } from "@rneui/themed";
 import { Link } from "expo-router";
-import { GestureResponderEvent, View } from "react-native";
+import {
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
+  View,
+} from "react-native";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.colors.background,
   },
   title: {
-    margin: "auto",
+    marginHorizontal: "auto",
+    marginVertical: theme.spacing.xl,
+  },
+  button: {
+    marginVertical: theme.spacing.xl,
   },
 }));
 
@@ -22,7 +30,7 @@ type Props = {
   password: string;
   onPasswordChange: (password: string) => void;
   disabled: boolean;
-  onButtonClick: (event: GestureResponderEvent) => void;
+  onButtonClick: () => void;
 };
 
 const LoginField = ({
@@ -36,19 +44,43 @@ const LoginField = ({
 }: Props) => {
   const classes = useStyles();
 
+  const handleKeyPress = (
+    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+  ) => {
+    if (event.nativeEvent.key === "Enter") {
+      onButtonClick();
+    }
+  };
+
   return (
     <View style={classes.container}>
       <View>
-        <Text h2 style={classes.title}>
+        <Text h4 style={classes.title}>
           {mode.toUpperCase()}
         </Text>
-        <Input value={email} onChangeText={onEmailChange} />
+        <Input
+          value={email}
+          onChangeText={onEmailChange}
+          placeholder="Enter your email"
+          onKeyPress={handleKeyPress}
+          returnKeyType="next"
+          keyboardType="email-address"
+        />
         <Input
           value={password}
           onChangeText={onPasswordChange}
+          placeholder="Enter your password"
+          onKeyPress={handleKeyPress}
+          returnKeyType="done"
+          keyboardType="default"
           secureTextEntry
         />
-        <Button disabled={disabled} onPress={onButtonClick} radius={5}>
+        <Button
+          disabled={disabled}
+          onPress={onButtonClick}
+          radius={5}
+          style={classes.button}
+        >
           {mode.toUpperCase()}
         </Button>
       </View>
@@ -57,7 +89,7 @@ const LoginField = ({
           href={mode === "login" ? "/register" : "/login"}
           disabled={disabled}
         >
-          {mode === "login" ? "Register" : "Login"}
+          {mode === "login" ? "No account? Register" : "Have an account? Login"}
         </Link>
       </View>
     </View>

@@ -1,7 +1,7 @@
-import LoginField from "@components/LoginField";
-import ErrorComponent from "@components/Error";
+import { useLoginUser } from "@auth/hooks";
+import ErrorScreen from "@components/ErrorScreen";
 import LoadingSpinner from "@components/LoadingSpinner";
-import { useLoginUser } from "@hooks/auth";
+import LoginField from "@components/LoginField";
 import { Redirect } from "expo-router";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ const Login = () => {
   }
 
   if (error) {
-    return <ErrorComponent error={error.message} />;
+    return <ErrorScreen error={error.message} />;
   }
 
   return (
