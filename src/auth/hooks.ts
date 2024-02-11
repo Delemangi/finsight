@@ -1,5 +1,7 @@
+import { queryClient } from "@api/queryClient";
 import { firebaseApp } from "@auth/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { usePostStore } from "@stores/postStore";
 import { useUserStore } from "@stores/userStore";
 import {
   createUserWithEmailAndPassword,
@@ -64,6 +66,7 @@ export const useLogoutUser = () => {
   const { setUser } = useUserStore();
   const [loading, setLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const setType = usePostStore((state) => state.setType);
 
   const logout = useCallback(() => {
     setLoading(true);
@@ -72,7 +75,11 @@ export const useLogoutUser = () => {
       .signOut()
       .then(() => {
         setUser(null);
+        setType(null);
         setLoading(false);
+        queryClient.invalidateQueries({
+          predicate: (query) => query.queryKey[0] === "posts",
+        });
       })
       .catch((error) => {
         setError(error);
