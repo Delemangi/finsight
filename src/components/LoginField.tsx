@@ -134,6 +134,9 @@ const LoginField = ({
         style={styles.button}
         loading={isLoading}
         color="success"
+        disabledStyle={{
+          backgroundColor: theme.colors.primary,
+        }}
       >
         {mode.toUpperCase()}
       </Button>
