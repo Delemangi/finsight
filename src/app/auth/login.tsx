@@ -18,6 +18,12 @@ const Login = () => {
     !/^[^@]+@[^@]+\.[^@]+$/g.test(email) ||
     password.length < 5;
 
+  const handleLogin = () => {
+    login(email, password);
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <LoginField
       mode="login"
@@ -26,7 +32,7 @@ const Login = () => {
       password={password}
       onPasswordChange={setPassword}
       disabled={isDisabled}
-      onButtonClick={() => login(email, password)}
+      onButtonClick={handleLogin}
       isLoading={loading ?? false}
       error={error}
     />

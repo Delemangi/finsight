@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getUrl, listUrl } from "./urls";
+import { getUrl, listUrl, questionsUrl } from "./urls";
 import { Post } from "../types/Post";
+import { Question } from "../types/Question";
 
 export const useGetPosts = (type: string | null) => {
   return useQuery<Post[], Error>({
@@ -23,6 +24,14 @@ export const useGetPostTypes = () => {
       fetch(listUrl())
         .then((res) => res.json())
         .then((data) => data.scrapers),
+    staleTime: Infinity,
+  });
+};
+
+export const useGetQuestions = () => {
+  return useQuery<Question[], Error>({
+    queryKey: ["questions"],
+    queryFn: () => fetch(questionsUrl()).then((res) => res.json()),
     staleTime: Infinity,
   });
 };

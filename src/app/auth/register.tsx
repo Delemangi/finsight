@@ -18,6 +18,12 @@ const Register = () => {
     !/^[^@]+@[^@]+\.[^@]+$/g.test(email) ||
     password.length < 5;
 
+  const handleRegister = () => {
+    register(email, password);
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <LoginField
       mode="register"
@@ -26,7 +32,7 @@ const Register = () => {
       password={password}
       onPasswordChange={setPassword}
       disabled={isDisabled}
-      onButtonClick={() => register(email, password)}
+      onButtonClick={handleRegister}
       isLoading={loading ?? false}
       error={error}
     />
