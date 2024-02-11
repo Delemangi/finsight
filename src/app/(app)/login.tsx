@@ -9,7 +9,7 @@ const Login = () => {
   const { login, loading, error, user } = useLoginUser();
 
   if (user) {
-    return <Redirect href="/camera" />;
+    return <Redirect href="/" />;
   }
 
   const isDisabled =

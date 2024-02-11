@@ -103,12 +103,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
+    justifyContent: "center",
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#000",
-    padding: 120,
   },
   controls: {
+    justifyContent: "center",
     flex: 0.5,
   },
   button: {
@@ -125,8 +125,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   camera: {
-    flex: 5,
+    flex: 1,
     borderRadius: 2,
+    paddingHorizontal: 200,
   },
   topControls: {
     flex: 1,
