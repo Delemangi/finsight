@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
+const CameraTab = () => {
   const styles = useStyles();
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
   const [image, setImage] = useState<string | null>(null);
@@ -48,13 +48,13 @@ export default function App() {
   const cameraRef = useRef<Camera>(null);
 
   useEffect(() => {
-    const func = async () => {
+    const requestPermissions = async () => {
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
     };
 
-    func();
+    requestPermissions();
   }, []);
 
   const takePicture = async () => {
@@ -132,4 +132,6 @@ export default function App() {
       </View>
     </View>
   );
-}
+};
+
+export default CameraTab;
