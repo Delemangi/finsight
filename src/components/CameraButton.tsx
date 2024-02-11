@@ -24,7 +24,7 @@ type Props = {
   icon: string;
 };
 
-export default function Button({ title, onPress, icon }: Props) {
+const Button = ({ title, onPress, icon }: Props) => {
   const styles = useStyles();
   const { theme } = useTheme();
 
@@ -34,4 +34,6 @@ export default function Button({ title, onPress, icon }: Props) {
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default Button;
