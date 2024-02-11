@@ -1,39 +1,101 @@
 import { Camera, CameraType } from "expo-camera";
-import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Constants from "expo-constants";
+import * as MediaLibrary from "expo-media-library";
+import React, { useState, useEffect, useRef } from "react";
+import { Text, View, StyleSheet, Image } from "react-native";
 
-function NoPermissionError() {
-  return (
-    <View style={styles.errorContainer}>
-      <Text style={styles.errorText}>No permission for the camera.</Text>
-    </View>
-  );
-}
+import Button from "../../components/CameraButton";
 
-export function CameraView() {
+export default function App() {
+  const [hasCameraPermission, setHasCameraPermission] = useState(false);
+  const [image, setImage] = useState(null);
   const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const cameraRef = useRef(null);
 
-  if (!permission) {
-    requestPermission();
-    return <NoPermissionError />;
-  }
+  useEffect(() => {
+    (async () => {
+      MediaLibrary.requestPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === "granted");
+    })();
+  }, []);
 
-  function toggleCameraType() {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back,
-    );
+  const takePicture = async () => {
+    if (cameraRef) {
+      try {
+        // @ts-ignore
+        const data = await cameraRef.current.takePictureAsync();
+        console.log(data);
+        setImage(data.uri);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const savePicture = async () => {
+    if (image) {
+      try {
+        const asset = await MediaLibrary.createAssetAsync(image);
+        alert("Picture saved! 🎉");
+        setImage(null);
+        console.log("saved successfully");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  if (hasCameraPermission === false) {
+    return <Text>No access to camera</Text>;
   }
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+      {!image ? (
+        <Camera style={styles.camera} type={type} ref={cameraRef}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 30,
+            }}
+          >
+            <Button
+              title=""
+              icon="retweet"
+              onPress={() => {
+                setType(
+                  type === CameraType.back ? CameraType.front : CameraType.back,
+                );
+              }}
+            />
+          </View>
+        </Camera>
+      ) : (
+        <Image source={{ uri: image }} style={styles.camera} />
+      )}
+
+      <View style={styles.controls}>
+        {image ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 50,
+            }}
+          >
+            <Button
+              title="Re-take"
+              onPress={() => setImage(null)}
+              icon="retweet"
+            />
+            <Button title="Save" onPress={savePicture} icon="check" />
+          </View>
+        ) : (
+          <Button title="Take a picture" onPress={takePicture} icon="camera" />
+        )}
+      </View>
     </View>
   );
 }
@@ -41,43 +103,32 @@ export function CameraView() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    // justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#000",
+    padding: 120,
   },
-  camera: {
-    flex: 1,
-  },
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
+  controls: {
+    flex: 0.5,
   },
   button: {
-    flex: 0.1,
-    alignSelf: "flex-end",
+    height: 40,
+    borderRadius: 6,
+    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 10,
-    paddingHorizontal: 20,
-    marginBottom: 20,
+    justifyContent: "center",
   },
   text: {
-    fontSize: 18,
-    color: "black",
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#E9730F",
+    marginLeft: 10,
   },
-  errorContainer: {
+  camera: {
+    flex: 5,
+    borderRadius: 2,
+  },
+  topControls: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
-  },
-  errorText: {
-    fontSize: 20,
-    color: "white",
-    textAlign: "center",
-    paddingHorizontal: 20,
   },
 });
-
-export default CameraView;
