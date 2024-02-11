@@ -69,6 +69,15 @@ const RootLayout = () => {
             ),
           }}
         />
+        <Tabs.Screen
+          name="camera/index"
+          options={{
+            title: "Camera",
+            tabBarIcon: () => (
+              <AntDesign name="camera" size={20} color="white" />
+            ),
+          }}
+        />
       </Tabs>
     </Providers>
   );

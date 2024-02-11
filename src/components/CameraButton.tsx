@@ -1,17 +1,9 @@
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { makeStyles, useTheme } from "@rneui/themed";
 import * as React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
-// @ts-ignore
-export default function Button({ title, onPress, icon }) {
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Entypo name={icon} size={28} color="#f1f1f1" />
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
-  );
-}
+import { Text, TouchableOpacity } from "react-native";
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   button: {
     height: 40,
     flexDirection: "row",
@@ -21,7 +13,25 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     fontSize: 16,
-    color: "#f1f1f1",
+    color: theme.colors.white,
     marginLeft: 10,
   },
-});
+}));
+
+type Props = {
+  title: string;
+  onPress: () => void;
+  icon: string;
+};
+
+export default function Button({ title, onPress, icon }: Props) {
+  const styles = useStyles();
+  const { theme } = useTheme();
+
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.button}>
+      <Entypo name={icon as any} size={28} color={theme.colors.white} />
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
