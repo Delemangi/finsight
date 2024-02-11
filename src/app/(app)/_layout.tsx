@@ -1,11 +1,11 @@
-import AppHeader from "@components/AppHeader";
 import { makeStyles } from "@rneui/themed";
 import { usePostStore } from "@stores/postStore";
+import { useQuestionStore } from "@stores/questionStore";
 import { Slot } from "expo-router";
 import { useEffect } from "react";
 import { View } from "react-native";
 
-import { useGetPostTypes } from "../../api/hooks";
+import { useGetPostTypes, useGetQuestions } from "../../api/hooks";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
 const HomeLayout = () => {
   const styles = useStyles();
   const { data: typesData } = useGetPostTypes();
+  const { data: questionsData } = useGetQuestions();
   const setTypes = usePostStore((state) => state.setTypes);
+  const setQuestions = useQuestionStore((state) => state.setQuestions);
 
   useEffect(() => {
     if (typesData) {
@@ -31,9 +33,14 @@ const HomeLayout = () => {
     }
   }, [typesData]);
 
+  useEffect(() => {
+    if (questionsData) {
+      setQuestions(questionsData);
+    }
+  }, [questionsData]);
+
   return (
     <>
-      <AppHeader />
       <View style={styles.container}>
         <Slot />
       </View>

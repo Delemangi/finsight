@@ -9,6 +9,7 @@ import {
   inMemoryPersistence,
   initializeAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { useCallback, useState } from "react";
 
@@ -23,19 +24,22 @@ export const useLoginUser = () => {
   const [loading, setLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  const login = useCallback((email: string, password: string) => {
-    setLoading(true);
+  const login = useCallback(
+    (email: string, password: string) => {
+      setLoading(true);
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setUser(userCredential.user);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
+        });
+    },
+    [auth],
+  );
 
   return { login, user, loading, error };
 };
@@ -45,19 +49,22 @@ export const useRegisterUser = () => {
   const [loading, setLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  const register = useCallback((email: string, password: string) => {
-    setLoading(true);
+  const register = useCallback(
+    (email: string, password: string) => {
+      setLoading(true);
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setUser(userCredential.user);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
+        });
+    },
+    [auth],
+  );
 
   return { register, user, loading, error };
 };
@@ -71,8 +78,7 @@ export const useLogoutUser = () => {
   const logout = useCallback(() => {
     setLoading(true);
 
-    auth
-      .signOut()
+    signOut(auth)
       .then(() => {
         setUser(null);
         setType(null);
@@ -85,7 +91,7 @@ export const useLogoutUser = () => {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  }, [auth, queryClient]);
 
   return { logout, loading, error };
 };

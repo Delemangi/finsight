@@ -34,7 +34,7 @@ type Props = {
   post: Post;
 };
 
-export const PostCard = ({ post }: Props) => {
+const PostCard = ({ post }: Props) => {
   const styles = useStyles();
 
   const formattedDate = dateTimeFormat.format(new Date(post.timestamp));
@@ -52,8 +52,13 @@ export const PostCard = ({ post }: Props) => {
         <Card.Title>{post.title}</Card.Title>
       </TouchableOpacity>
       <Card.Divider />
-      <Text style={styles.description}>{post.description}</Text>
+      <Text style={styles.description}>{post.description ?? "Нема опис."}</Text>
       <Text style={styles.timestamp}>{formattedDate}</Text>
+      {post.author && (
+        <Card.FeaturedSubtitle>{post.author.name}</Card.FeaturedSubtitle>
+      )}
     </Card>
   );
 };
+
+export default PostCard;
