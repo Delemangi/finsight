@@ -1,6 +1,4 @@
 import { useLoginUser } from "@auth/hooks";
-import ErrorScreen from "@components/ErrorScreen";
-import LoadingSpinner from "@components/LoadingSpinner";
 import LoginField from "@components/LoginField";
 import { Redirect } from "expo-router";
 import { useState } from "react";
@@ -14,13 +12,11 @@ const Login = () => {
     return <Redirect href="/camera" />;
   }
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <ErrorScreen error={error.message} />;
-  }
+  const isDisabled =
+    !email ||
+    !password ||
+    !/^[^@]+@[^@]+\.[^@]+$/g.test(email) ||
+    password.length < 5;
 
   return (
     <LoginField
@@ -29,8 +25,10 @@ const Login = () => {
       onEmailChange={setEmail}
       password={password}
       onPasswordChange={setPassword}
-      disabled={!email || !password}
+      disabled={isDisabled}
       onButtonClick={() => login(email, password)}
+      isLoading={loading ?? false}
+      error={error}
     />
   );
 };
