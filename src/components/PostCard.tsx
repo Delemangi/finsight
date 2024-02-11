@@ -5,6 +5,10 @@ import { Linking, Text, TouchableOpacity } from "react-native";
 import { Post } from "../types/Post";
 
 const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: "#100f38",
+    borderRadius: 10,
+  },
   image: {
     width: "100%",
     height: 200,
@@ -33,10 +37,10 @@ type Props = {
 export const PostCard = ({ post }: Props) => {
   const styles = useStyles();
 
-  const formatedDate = dateTimeFormat.format(new Date(post.timestamp));
+  const formattedDate = dateTimeFormat.format(new Date(post.timestamp));
 
   return (
-    <Card>
+    <Card containerStyle={styles.card}>
       <TouchableOpacity onPress={() => Linking.openURL(post.url)}>
         {post.thumbnail && (
           <Image
@@ -49,8 +53,7 @@ export const PostCard = ({ post }: Props) => {
       </TouchableOpacity>
       <Card.Divider />
       <Text style={styles.description}>{post.description}</Text>
-      {}
-      <Text style={styles.timestamp}>Posted on: {formatedDate}</Text>
+      <Text style={styles.timestamp}>{formattedDate}</Text>
     </Card>
   );
 };
