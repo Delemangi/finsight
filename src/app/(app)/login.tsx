@@ -11,7 +11,7 @@ const Login = () => {
   const { login, loading, error, user } = useLoginUser();
 
   if (user) {
-    return <Redirect href="/" />;
+    return <Redirect href="/camera" />;
   }
 
   if (loading) {
