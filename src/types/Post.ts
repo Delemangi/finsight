@@ -4,6 +4,11 @@ export type Post = {
   thumbnail?: {
     url: string;
   };
-  description: string;
+  description?: string;
   timestamp: string;
+  author?: {
+    name: string;
+    url: string;
+    icon_url: string;
+  };
 };
