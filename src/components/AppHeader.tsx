@@ -1,4 +1,5 @@
-import { Chip, Header, Text, makeStyles } from "@rneui/themed";
+import { useLogoutUser } from "@auth/hooks";
+import { Button, Chip, Header, Text, makeStyles } from "@rneui/themed";
 import { usePostStore } from "@stores/postStore";
 import { useUserStore } from "@stores/userStore";
 import React from "react";
@@ -37,6 +38,7 @@ const AppHeader = () => {
     type: selectedType,
   } = usePostStore((state) => state);
   const user = useUserStore((state) => state.user);
+  const { logout, loading } = useLogoutUser();
 
   const handlePostTypeSelect = (type: string) => {
     setType(type);
@@ -44,6 +46,22 @@ const AppHeader = () => {
 
   return (
     <Header
+      leftComponent={
+        user ? (
+          <Button
+            icon={{
+              name: "logout",
+              type: "material",
+              color: "white",
+            }}
+            onPress={() => {
+              logout();
+            }}
+            loading={Boolean(loading)}
+            type="solid"
+          />
+        ) : undefined
+      }
       centerComponent={
         <ScrollView
           horizontal
