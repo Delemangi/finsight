@@ -1,6 +1,6 @@
+import { useGetPosts } from "@api/hooks";
 import { isRouteAuthenticated } from "@auth/routes";
 import { PostCard } from "@components/PostCard";
-import { useGetPosts } from "@query/hooks";
 import { usePostStore } from "@stores/postStore";
 import { useUserStore } from "@stores/userStore";
 import { usePathname } from "expo-router";

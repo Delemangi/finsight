@@ -1,10 +1,11 @@
 import AppHeader from "@components/AppHeader";
-import { useGetPostTypes } from "@query/hooks";
 import { makeStyles } from "@rneui/themed";
 import { usePostStore } from "@stores/postStore";
 import { Slot } from "expo-router";
 import { useEffect } from "react";
 import { View } from "react-native";
+
+import { useGetPostTypes } from "../../api/hooks";
 
 const useStyles = makeStyles((theme) => ({
   container: {

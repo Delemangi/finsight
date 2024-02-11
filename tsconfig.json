@@ -3,6 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
+      "@api/*": [
+        "./src/api/*"
+      ],
       "@app/*": [
         "./src/app/*"
       ],
@@ -15,14 +18,8 @@
       "@config/*": [
         "./src/config/*"
       ],
-      "@constants/*": [
-        "./src/constants/*"
-      ],
       "@providers/*": [
         "./src/providers/*"
-      ],
-      "@query/*": [
-        "./src/query/*"
       ],
       "@stores/*": [
         "./src/stores/*"

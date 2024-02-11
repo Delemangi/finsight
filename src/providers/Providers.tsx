@@ -1,4 +1,4 @@
-import { queryClient } from "@query/queryClient";
+import { queryClient } from "@api/queryClient";
 import { ThemeProvider } from "@rneui/themed";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { theme } from "@themes/theme";
