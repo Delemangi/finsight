@@ -13,7 +13,10 @@ The application is intended to fetch data from the web application available at 
 - Look up several types of posts (announcements) from several sources from the University through the web service
 - Preview and search frequently asked questions
 - Camera
-
+- User location retrieval and faculty directions display on Google Maps
+- Displaying classrooms map
+- Displaying exam sessions timetable
+  
 ## Design Patterns
 
 The application uses several design patterns:
