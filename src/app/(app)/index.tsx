@@ -2,9 +2,7 @@ import { isRouteAuthenticated } from "@auth/routes";
 import { Text, makeStyles } from "@rneui/themed";
 import { useUserStore } from "@stores/userStore";
 import { Redirect, usePathname } from "expo-router";
-import { useEffect } from "react";
-import { Button, View } from "react-native";
-import * as Notifications from 'expo-notifications';
+import { View } from "react-native";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,22 +36,6 @@ const App = () => {
     return <Redirect href="/auth/login" />;
   }
   
-  useEffect(() => {
-    // Set up notifications
-    Notifications.requestPermissionsAsync();
-     // Schedule a local notification
-     const trigger = new Date().getTime() + 5000; // in 5 seconds
-     Notifications.scheduleNotificationAsync({
-       content: {
-         title: 'Local Notification',
-         body: 'This is a local notification!',
-       },
-       trigger,
-     });
-     console.log(trigger);
-  }, []);
-
-
   return (
     <View style={styles.container}>
       <Text h1 style={styles.title}>
