@@ -2,9 +2,9 @@ import { isRouteAuthenticated } from "@auth/routes";
 import { Text, makeStyles } from "@rneui/themed";
 import { useUserStore } from "@stores/userStore";
 import { Redirect, usePathname } from "expo-router";
-import { useEffect } from "react";
 import { View } from "react-native";
-
+import { useEffect } from "react";
+import BackgroundFetch from "react-native-background-fetch";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,7 +33,37 @@ const App = () => {
   const { user } = useUserStore();
   const route = usePathname();
 
-  
+
+  useEffect(() => {
+    const backgroundTask = async (taskId: string | undefined) => {
+      console.log(`Background task with ID ${taskId} executed`);
+
+      // Signal task completion
+      BackgroundFetch.finish(taskId);
+    };
+
+    BackgroundFetch.configure(
+      {
+        minimumFetchInterval: 15, // Minimum interval in minutes
+        stopOnTerminate: false,   // Keep running in the background
+      },
+      backgroundTask,
+      (error) => {
+        console.error('Background fetch error:', error);
+      }
+    );
+
+    // Start the background task
+    BackgroundFetch.start();
+
+    // Cleanup if needed
+    return () => {
+      BackgroundFetch.stop();
+    };
+  }, []);
+
+
+
   if (!user && isRouteAuthenticated(route)) {
     return <Redirect href="/auth/login" />;
   }
@@ -55,3 +85,4 @@ const App = () => {
 };
 
 export default App;
+
