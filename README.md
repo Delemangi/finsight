@@ -8,8 +8,11 @@ The application is intended to fetch data from the web application available at 
 
 - Custom UI elements
 - State management
+- Folder based routing
 - Login & Register functionalities using Firebase
 - Look up several types of posts (announcements) from several sources from the University through the web service
+- Preview and search frequently asked questions
+- Camera
 
 ## Design Patterns
 
