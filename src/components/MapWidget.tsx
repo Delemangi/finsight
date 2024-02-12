@@ -1,12 +1,15 @@
+import { useLocationStore } from "@stores/locationStore";
 import {Text, View} from "react-native"
-
+import {WebView} from "react-native-webview"
 
 export default function MapWidget() {
-  // return <WebView 
-  //   source={{ uri: 'https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=12.00445%2C57.40926%3B42.00475%2C21.41002#map=5/34.651/40.210&layers=H' }}
-  //   style = {{height: '100%'}}  /> 
+  const latitude = useLocationStore((state) => state.latitude);
+  const longitude = useLocationStore((state) => state.longitude);
 
-  console.log("MapWidget")
+  const prep_uri = 'www.google.com/maps/dir/'+latitude+','+longitude+'/Faculty+of+Computer+Science+%26+Engineering,+Rugjer+Boshkovikj,+Skopje/'+
+                    '@44.8831698,13.6218345,4z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x13541443605aa4ab:0x33d56647e5b87264!2m2!1d21.4095479!2d42.0041182?entry=ttu'
+  return <WebView 
+    source={{ uri:  prep_uri}}
+    style = {{height: '100%'}}  /> 
 
-  return <View><Text>dslkilfsdjklf</Text></View>
   }

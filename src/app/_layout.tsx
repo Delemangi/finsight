@@ -78,6 +78,15 @@ const RootLayout = () => {
             ),
           }}
         />
+        <Tabs.Screen
+          name="map/index"
+          options={{
+            title: "Map",
+            tabBarIcon: () => (
+              <AntDesign name="enviroment" size={20} color="white" />
+            ),
+          }}
+        />
       </Tabs>
     </Providers>
   );
