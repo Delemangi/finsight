@@ -42,16 +42,6 @@ const RootLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="auth/logout"
-          options={{
-            title: "Logout",
-            tabBarIcon: () => (
-              <AntDesign name="logout" size={20} color="white" />
-            ),
-            href: user ? "/auth/logout" : null,
-          }}
-        />
-        <Tabs.Screen
           name="posts/index"
           options={{
             title: "Posts",
@@ -68,6 +58,7 @@ const RootLayout = () => {
               <AntDesign name="question" size={20} color="white" />
             ),
           }}
+          
         />
         <Tabs.Screen
           name="camera/index"
@@ -107,6 +98,27 @@ const RootLayout = () => {
             ),
           }}
         />
+        <Tabs.Screen
+          name="settings/notifications"
+          options={{
+            title: "Settings",
+            tabBarIcon: () => (
+              <AntDesign name="setting" size={20} color="white" />
+            ),
+            href: user ? "/settings/notifications" : null,
+          }}
+        />
+        <Tabs.Screen
+          name="auth/logout"
+          options={{
+            title: "Logout",
+            tabBarIcon: () => (
+              <AntDesign name="logout" size={20} color="white" />
+            ),
+            href: user ? "/auth/logout" : null,
+          }}
+        />
+
       </Tabs>
     </Providers>
   );

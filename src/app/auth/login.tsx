@@ -2,7 +2,6 @@ import { useLoginUser } from "@auth/hooks";
 import LoginField from "@components/LoginField";
 import { Redirect } from "expo-router";
 import { useState } from "react";
-import * as Location from 'expo-location';
 
 const Login = () => {
   const [email, setEmail] = useState("");
