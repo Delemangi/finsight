@@ -97,6 +97,16 @@ const RootLayout = () => {
             ),
           }}
         />
+
+        <Tabs.Screen
+          name="calendar/index"
+          options={{
+            title: "Calendar",
+            tabBarIcon: () => (
+              <AntDesign name="calendar" size={20} color="white" />
+            ),
+          }}
+        />
       </Tabs>
     </Providers>
   );

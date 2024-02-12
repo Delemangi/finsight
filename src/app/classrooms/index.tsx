@@ -1,7 +1,7 @@
 import ClassroomWidget from "@components/ClassroomWidget";
 
-const Map = () => {
+const Classrooms = () => {
     return <ClassroomWidget/>
 }
 
-export default Map;
+export default Classrooms;
