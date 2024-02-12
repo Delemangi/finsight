@@ -2,7 +2,7 @@ import { useLocationStore } from "@stores/locationStore";
 import {Text, View} from "react-native"
 import {WebView} from "react-native-webview"
 
-export default function MapWidget() {
+const MapWidget = () => {
   const latitude = useLocationStore((state) => state.latitude);
   const longitude = useLocationStore((state) => state.longitude);
 
@@ -11,5 +11,6 @@ export default function MapWidget() {
   return <WebView 
     source={{ uri:  prep_uri}}
     style = {{height: '100%'}}  /> 
+}
 
-  }
+  export default MapWidget;

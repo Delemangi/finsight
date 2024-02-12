@@ -87,6 +87,16 @@ const RootLayout = () => {
             ),
           }}
         />
+
+        <Tabs.Screen
+          name="classrooms/index"
+          options={{
+            title: "Classrooms",
+            tabBarIcon: () => (
+              <AntDesign name="book" size={20} color="white" />
+            ),
+          }}
+        />
       </Tabs>
     </Providers>
   );
