@@ -5,6 +5,7 @@ import { Redirect, usePathname } from "expo-router";
 import { View } from "react-native";
 import { useEffect } from "react";
 import BackgroundFetch from "react-native-background-fetch";
+import DiscordButton from "@components/DiscordButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -19,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.colors.white,
   },
   text: {
+    color: theme.colors.white,
+  },
+  contact: {
+    marginTop: 50,
     color: theme.colors.white,
   },
   user: {
@@ -77,10 +82,16 @@ const App = () => {
         Welcome to Finsight! You are currently logged in as{" "}
         <Text style={styles.user}>{user?.email}</Text>.
       </Text>
-      <Text style={styles.text}>
-        You can now start exploring the app and see what's new.
+
+
+      <Text style={styles.contact}>
+        For any issues and troubles please contact us at support@finsight.com
       </Text>
+
+      <DiscordButton />
     </View>
+
+
   );
 };
 
