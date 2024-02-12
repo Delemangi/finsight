@@ -143,7 +143,7 @@ const LoginField = ({
       <View>
         <Link
           href={mode === "login" ? "/register" : "/login"}
-          disabled={disabled}
+          style={styles.link}
         >
           {mode === "login"
             ? "No account? Register!"
