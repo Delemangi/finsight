@@ -2,6 +2,7 @@ import { isRouteAuthenticated } from "@auth/routes";
 import { Text, makeStyles } from "@rneui/themed";
 import { useUserStore } from "@stores/userStore";
 import { Redirect, usePathname } from "expo-router";
+import { useEffect } from "react";
 import { View } from "react-native";
 
 
@@ -32,6 +33,7 @@ const App = () => {
   const { user } = useUserStore();
   const route = usePathname();
 
+  
   if (!user && isRouteAuthenticated(route)) {
     return <Redirect href="/auth/login" />;
   }
