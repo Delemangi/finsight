@@ -5,7 +5,6 @@ import PostsHeader from "@components/PostsHeader";
 import { makeStyles } from "@rneui/themed";
 import { usePostStore } from "@stores/postStore";
 import { useUserStore } from "@stores/userStore";
-import { useEffect } from "react";
 import { ScrollView, View, Text } from "react-native";
 
 const useStyles = makeStyles((theme) => ({
