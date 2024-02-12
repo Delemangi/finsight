@@ -142,8 +142,8 @@ const LoginField = ({
       </Button>
       <View>
         <Link
-          href={mode === "login" ? "/auth/register" : "/auth/login"}
-          style={styles.link}
+          href={mode === "login" ? "/register" : "/login"}
+          disabled={disabled}
         >
           {mode === "login"
             ? "No account? Register!"

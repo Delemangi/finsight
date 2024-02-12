@@ -23,6 +23,8 @@
     "expo-font": "~11.10.2",
     "expo-linking": "~6.2.2",
     "expo-media-library": "~15.9.1",
+    "expo-location": "^16.5.3",
+    "expo-permissions": "^14.4.0",
     "expo-router": "~3.4.7",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
@@ -41,6 +43,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
+    "react-native-webview": "13.6.4",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
