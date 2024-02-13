@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  error: string;
+  error: unknown;
 };
 
 const ErrorScreen = ({ error }: Props) => {
@@ -31,7 +31,7 @@ const ErrorScreen = ({ error }: Props) => {
       <Text h4 style={styles.message}>
         The application has crashed :'(
       </Text>
-      <Text style={styles.errorText}>{error}</Text>
+      <Text style={styles.errorText}>{`${error}`}</Text>
     </View>
   );
 };

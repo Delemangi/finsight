@@ -20,6 +20,8 @@ const RootLayout = () => {
             backgroundColor: "#000",
           },
           headerShown: false,
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "gray",
         }}
       >
         <Tabs.Screen
@@ -39,16 +41,6 @@ const RootLayout = () => {
           name="auth/register"
           options={{
             href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="auth/logout"
-          options={{
-            title: "Logout",
-            tabBarIcon: () => (
-              <AntDesign name="logout" size={20} color="white" />
-            ),
-            href: user ? "/auth/logout" : null,
           }}
         />
         <Tabs.Screen
@@ -76,6 +68,51 @@ const RootLayout = () => {
             tabBarIcon: () => (
               <AntDesign name="camera" size={20} color="white" />
             ),
+          }}
+        />
+        <Tabs.Screen
+          name="map/index"
+          options={{
+            title: "Map",
+            tabBarIcon: () => (
+              <AntDesign name="enviroment" size={20} color="white" />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="classrooms/index"
+          options={{
+            title: "Campus",
+            tabBarIcon: () => <AntDesign name="book" size={20} color="white" />,
+          }}
+        />
+        <Tabs.Screen
+          name="calendar/index"
+          options={{
+            title: "Calendar",
+            tabBarIcon: () => (
+              <AntDesign name="calendar" size={20} color="white" />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="settings/index"
+          options={{
+            title: "Settings",
+            tabBarIcon: () => (
+              <AntDesign name="setting" size={20} color="white" />
+            ),
+            href: user ? "/settings" : null,
+          }}
+        />
+        <Tabs.Screen
+          name="auth/logout"
+          options={{
+            title: "Leave",
+            tabBarIcon: () => (
+              <AntDesign name="logout" size={20} color="white" />
+            ),
+            href: user ? "/auth/logout" : null,
           }}
         />
       </Tabs>
