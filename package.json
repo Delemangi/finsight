@@ -39,7 +39,6 @@
     "react-i18next": "^14.0.5",
     "react-native": "0.73.4",
     "react-native-background-fetch": "^4.2.2",
-    "react-native-background-task": "^0.2.1",
     "react-native-background-timer": "^2.4.1",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-reanimated": "~3.6.2",
@@ -48,7 +47,10 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "expo-background-fetch": "~11.8.1",
+    "expo-task-manager": "~11.7.2",
+    "expo-device": "~5.9.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

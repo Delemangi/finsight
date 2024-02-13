@@ -1,44 +1,38 @@
+import ErrorScreen from "@components/ErrorScreen";
 import MapWidget from "@components/MapWidget";
 import { useLocationStore } from "@stores/locationStore";
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 import { useEffect } from "react";
 
-
 const Map = () => {
-    const {
-        setLatitude,
-        setLongitude
-      } = useLocationStore((state) => state);
+  const { setLatitude, setLongitude } = useLocationStore((state) => state);
 
-    async function getUserLocation() {
-        try {
-            const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
-            console.log('Current location:', location.coords.latitude, location.coords.longitude);
-            setLatitude(location.coords.latitude)
-            setLongitude(location.coords.longitude)
-        } catch (error) {
-            console.error('Error getting location:', error);
-        }
+  async function getUserLocation() {
+    try {
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.High,
+      });
+
+      setLatitude(location.coords.latitude);
+      setLongitude(location.coords.longitude);
+    } catch (error) {
+      return <ErrorScreen error={error} />;
     }
+  }
 
-    const requestLocationPermission = async () => {
+  const requestLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    
-    if (status === 'granted') {
-        // Permission granted, get the user's location
-        getUserLocation();
-    } else {
-        console.log('Location permission denied');
-        // Handle the case where the user denied location permission
+
+    if (status === "granted") {
+      getUserLocation();
     }
-    };
+  };
 
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
 
-    useEffect(() => {
-        requestLocationPermission()
-    }, []);
-    
-    return <MapWidget/>
-}
+  return <MapWidget />;
+};
 
 export default Map;

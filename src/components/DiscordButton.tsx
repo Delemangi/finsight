@@ -1,43 +1,48 @@
-import { Linking, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
+import { makeStyles } from "@rneui/themed";
+import { Linking, TouchableOpacity, View, Text } from "react-native";
+
+import ErrorScreen from "./ErrorScreen";
+
+const url = "https://discord.gg/finki-studenti-810997107376914444";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    marginTop: 30,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  text: {
+    color: "white",
+    padding: 10,
+  },
+}));
 
 const DiscordButton = () => {
-    const HandlePress = async () => {
-        //replace with actual discord link
-        const url = 'https://www.google.com';  
-        try {
-            const supported = await Linking.canOpenURL(url);
-            if (supported) {
-                await Linking.openURL(url);
-            } else {
-                console.error('Cannot open URL:', url);
-            }
-        } catch (error) {
-            console.error('Error opening URL:', error);
-        }
-    };
+  const styles = useStyles();
 
-    return (
-        <View 
-            style= {{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row"
-            }}>
+  const handlePress = async () => {
+    try {
+      const supported = await Linking.canOpenURL(url);
 
-            <Text 
-                style = 
-                    {{color: "white", 
-                      padding: 10}}>
-                Join the forum</Text>
+      if (supported) {
+        await Linking.openURL(url);
+      }
+    } catch (error) {
+      return <ErrorScreen error={error} />;
+    }
+  };
 
-            <TouchableOpacity onPress={HandlePress}>
-            <Ionicons name="logo-discord" size={24} color="white" />
-            </TouchableOpacity>
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Join the forum</Text>
+      <TouchableOpacity onPress={handlePress}>
+        <Ionicons name="logo-discord" size={24} color="white" />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 export default DiscordButton;

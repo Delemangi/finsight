@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading, error, user } = useLoginUser();
-  
+
   if (user) {
     return <Redirect href="/" />;
   }

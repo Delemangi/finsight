@@ -20,6 +20,8 @@ const RootLayout = () => {
             backgroundColor: "#000",
           },
           headerShown: false,
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "gray",
         }}
       >
         <Tabs.Screen
@@ -58,7 +60,6 @@ const RootLayout = () => {
               <AntDesign name="question" size={20} color="white" />
             ),
           }}
-          
         />
         <Tabs.Screen
           name="camera/index"
@@ -78,17 +79,13 @@ const RootLayout = () => {
             ),
           }}
         />
-
         <Tabs.Screen
           name="classrooms/index"
           options={{
-            title: "Classrooms",
-            tabBarIcon: () => (
-              <AntDesign name="book" size={20} color="white" />
-            ),
+            title: "Campus",
+            tabBarIcon: () => <AntDesign name="book" size={20} color="white" />,
           }}
         />
-
         <Tabs.Screen
           name="calendar/index"
           options={{
@@ -99,26 +96,25 @@ const RootLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="settings/notifications"
+          name="settings/index"
           options={{
             title: "Settings",
             tabBarIcon: () => (
               <AntDesign name="setting" size={20} color="white" />
             ),
-            href: user ? "/settings/notifications" : null,
+            href: user ? "/settings" : null,
           }}
         />
         <Tabs.Screen
           name="auth/logout"
           options={{
-            title: "Logout",
+            title: "Leave",
             tabBarIcon: () => (
               <AntDesign name="logout" size={20} color="white" />
             ),
             href: user ? "/auth/logout" : null,
           }}
         />
-
       </Tabs>
     </Providers>
   );
