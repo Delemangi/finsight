@@ -1,12 +1,23 @@
+import { queryCache } from "@api/queryClient";
 import { isRouteAuthenticated } from "@auth/routes";
 import DiscordButton from "@components/DiscordButton";
 import { Text, makeStyles } from "@rneui/themed";
+import { useNotificationStore } from "@stores/notificationStore";
 import { useUserStore } from "@stores/userStore";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Redirect, usePathname } from "expo-router";
 import { useEffect, useRef } from "react";
-import { Alert, Linking, Platform, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Linking,
+  LogBox,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+import { Post } from "../../types/Post";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,6 +26,8 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+LogBox.ignoreAllLogs();
 
 async function registerForPushNotificationsAsync() {
   let token;
@@ -39,7 +52,7 @@ async function registerForPushNotificationsAsync() {
     }
 
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+      Alert.alert("Failed to get push token for push notification!");
       return;
     }
 
@@ -53,6 +66,17 @@ async function registerForPushNotificationsAsync() {
   }
 
   return token;
+}
+
+async function schedulePushNotification(post: Post) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: post.title,
+      body: post.description ?? "No description given.",
+      data: { post },
+    },
+    trigger: { seconds: 5 },
+  });
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +110,27 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
 }));
+
+queryCache.subscribe(({ query }) => {
+  const user = useUserStore.getState().user;
+  const notifications = useNotificationStore.getState().states;
+  const allowedNotifications = Object.entries(notifications)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+
+  if (
+    user &&
+    query.queryKey[0] === "posts" &&
+    allowedNotifications.includes(query.queryKey[1]) &&
+    query.state.data
+  ) {
+    const posts = query.state.data as Post[];
+
+    posts.slice(0, 3).forEach((post) => {
+      schedulePushNotification(post);
+    });
+  }
+});
 
 const App = () => {
   const styles = useStyles();

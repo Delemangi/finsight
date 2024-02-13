@@ -16,7 +16,8 @@ The application is intended to fetch data from the web application available at 
 - User location retrieval and faculty directions display on Google Maps
 - Displaying classrooms map
 - Displaying exam sessions timetable
-  
+- Notifications
+
 ## Design Patterns
 
 The application uses several design patterns:
