@@ -19,6 +19,8 @@ import {
 
 import { Post } from "../../types/Post";
 
+let notificationFlag = false;
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -61,8 +63,9 @@ async function registerForPushNotificationsAsync() {
         projectId: "a3e4812e-00ec-4b17-b40a-7153670ef369",
       })
     ).data;
-  } else {
+  } else if (!notificationFlag) {
     Alert.alert("Must use physical device for Push Notifications");
+    notificationFlag = true;
   }
 
   return token;
