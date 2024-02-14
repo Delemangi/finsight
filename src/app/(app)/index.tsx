@@ -93,6 +93,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     fontWeight: "bold",
     color: theme.colors.white,
+    textTransform: "uppercase",
+    marginVertical: 20,
   },
   text: {
     color: theme.colors.white,
